@@ -1,21 +1,23 @@
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import useSWR from "swr";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
-
-  // const { mutate } = useSWR("/api/employees");
+  const [showData, setShowData] = useState(false);
 
   const fetchData = async () => {
     try {
       const response = await fetch("/api/employees");
       const data = await response.json();
       setEmployees(data);
+      setShowData(true);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+  };
+
+  const hideData = () => {
+    setShowData(false);
   };
 
   return (
@@ -28,11 +30,19 @@ export default function Home() {
       </Head>
 
       <button onClick={fetchData}>Fetch all employees</button>
-      {employees.map(({ _id, firstName, lastName, position, supervisor }) => (
+      {/* {employees.map(({ _id, firstName, lastName, position, supervisor }) => (
         <li key={_id}>
           {firstName} {lastName} {position}
         </li>
-      ))}
+      ))} */}
+
+      {showData && employees && (
+        <div>
+          <button onClick={hideData}>Hide Data</button>
+          <h2>Response Data:</h2>
+          <pre>{JSON.stringify(employees, null, 2)}</pre>
+        </div>
+      )}
     </>
   );
 }
