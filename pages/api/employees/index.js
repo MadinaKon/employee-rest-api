@@ -7,7 +7,5 @@ export default async function handler(request, response) {
   if (request.method === "GET") {
     const employees = await Employee.find();
     return response.status(200).json(employees);
-  } else {
-    return response.status(405).json({ message: "Method not allowed" });
   }
 }

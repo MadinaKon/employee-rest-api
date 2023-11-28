@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
+import DeleteEmployee from "./DeleteEmployee";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
@@ -18,6 +19,10 @@ export default function Home() {
 
   const hideData = () => {
     setShowData(false);
+  };
+
+  const onDelete = () => {
+    console.log("clicked on delete ");
   };
 
   return (
@@ -40,7 +45,18 @@ export default function Home() {
         <div>
           <button onClick={hideData}>Hide Data</button>
           <h2>Response Data:</h2>
-          <pre>{JSON.stringify(employees, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(employees, null, 2)}</pre> */}
+          <ul>
+            {employees.map(
+              ({ _id, firstName, lastName, position, supervisor }) => (
+                <li key={_id}>
+                  {firstName} {lastName} {position}
+                  {/* <button onClick={onDelete}>DELETE</button> */}
+                  <DeleteEmployee id={_id}>Delete</DeleteEmployee>
+                </li>
+              )
+            )}
+          </ul>
         </div>
       )}
     </>
