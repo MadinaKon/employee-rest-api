@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import DeleteEmployee from "./DeleteEmployee";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
@@ -26,6 +25,19 @@ export default function Home() {
     fetchData();
   }, []);
 
+  const deleteItem = async (idToDelete) => {
+    try {
+      await fetch(`/api/employees/${idToDelete}`, {
+        method: "DELETE",
+      });
+      // Manually update the items state after deletion
+      const updatedItems = employees.filter((item) => item._id !== idToDelete);
+      setEmployees(updatedItems);
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -45,7 +57,7 @@ export default function Home() {
               ({ _id, firstName, lastName, position, supervisor }) => (
                 <li key={_id}>
                   {firstName} {lastName} {position}
-                  <DeleteEmployee id={_id}>Delete</DeleteEmployee>
+                  <button onClick={() => deleteItem(_id)}>Delete</button>
                 </li>
               )
             )}

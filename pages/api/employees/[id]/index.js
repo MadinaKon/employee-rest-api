@@ -14,6 +14,8 @@ export default async function handler(request, response) {
     try {
       await Employee.findByIdAndDelete(id);
 
+     // response.status(200).json({ status: `Id ${id} successfully deleted.` });
+
       response.status(200).json({ status: `Id ${id} successfully deleted.` });
     } catch (error) {
       console.log(error);
