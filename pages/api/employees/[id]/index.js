@@ -10,6 +10,7 @@ export default async function handler(request, response) {
   }
 
   if (request.method === "DELETE") {
+    console.log("DELETE ", id);
     try {
       await Employee.findByIdAndDelete(id);
 

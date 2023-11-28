@@ -1,15 +1,19 @@
 import React from "react";
+import useSWR from "swr";
 
 const DeleteEmployee = ({ id }) => {
+  const { data: employee, mutate } = useSWR(`/api/employees`);
+
   const handleDelete = async () => {
     try {
       const response = await fetch(`/api/employees/${id}`, {
         method: "DELETE",
       });
+      console.log("RESPONSE ", response);
 
       if (response.ok) {
-        console.log("Deleted successfully!");
-        // Perform any UI updates or other actions upon successful deletion
+        console.log(`${id} deleted successfully! `);
+        mutate();
       } else {
         console.error("Failed to delete item:", response.statusText);
       }

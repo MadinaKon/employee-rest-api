@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteEmployee from "./DeleteEmployee";
 
 export default function Home() {
@@ -21,9 +21,10 @@ export default function Home() {
     setShowData(false);
   };
 
-  const onDelete = () => {
-    console.log("clicked on delete ");
-  };
+  useEffect(() => {
+    // Fetch items when the component mounts or whenever dependencies change
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -35,23 +36,15 @@ export default function Home() {
       </Head>
 
       <button onClick={fetchData}>Fetch all employees</button>
-      {/* {employees.map(({ _id, firstName, lastName, position, supervisor }) => (
-        <li key={_id}>
-          {firstName} {lastName} {position}
-        </li>
-      ))} */}
-
       {showData && employees && (
         <div>
-          <button onClick={hideData}>Hide Data</button>
-          <h2>Response Data:</h2>
-          {/* <pre>{JSON.stringify(employees, null, 2)}</pre> */}
+          {/* <button onClick={hideData}>Hide Data</button> */}
+          <h2>Response Data: {employees.length}</h2>
           <ul>
             {employees.map(
               ({ _id, firstName, lastName, position, supervisor }) => (
                 <li key={_id}>
                   {firstName} {lastName} {position}
-                  {/* <button onClick={onDelete}>DELETE</button> */}
                   <DeleteEmployee id={_id}>Delete</DeleteEmployee>
                 </li>
               )
