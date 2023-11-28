@@ -33,6 +33,7 @@ export default function NewEmployeeForm() {
             <input
               type="text"
               name="firstName"
+              required
               //value={firstName}
               // onChange={handleChange}
             />
@@ -44,6 +45,7 @@ export default function NewEmployeeForm() {
             <input
               type="text"
               name="lastName"
+              required
               // value={lastName}
               // onChange={handleChange}
             />
@@ -55,6 +57,7 @@ export default function NewEmployeeForm() {
             <input
               type="text"
               name="position"
+              required
               // value={position}
               // onChange={handleChange}
             />
@@ -66,12 +69,12 @@ export default function NewEmployeeForm() {
             <input
               type="text"
               name="supervisor"
+              required
               // value={supervisor}
               // onChange={handleChange}
             />
           </label>
         </div>
-        {/* <button type="submit" onClick={() => createEmployee()}> */}
         <button type="submit">Create a new employee</button>
       </form>
     </>

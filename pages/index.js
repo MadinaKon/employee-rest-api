@@ -1,10 +1,15 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import NewEmployeeForm from "./NewEmployeeForm";
+import useSWR from "swr";
+import UpdateEmployeeForm from "./UpdateEmployeeForm";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
   const [showData, setShowData] = useState(false);
+
+  // const { data, isLoading, mutate } = useSWR(`/api/employees/${id}`);
+  const { data, isLoading, mutate } = useSWR(`/api/employees`);
 
   const fetchData = async () => {
     try {
@@ -24,6 +29,41 @@ export default function Home() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // const updateAnEmployee = async (idToUpdate) => {
+  //   try {
+  //     await fetch(`/api/employees/${idToUpdate}`, {
+  //       method: "PUT",
+  //     });
+
+  //     // const updatedItems = employees.filter((item) => item._id !== idToUpdate);
+  //     setEmployees(updatedItems);
+  //   } catch (error) {
+  //     console.error("Error updating item:", error);
+  //   }
+  // };
+
+  async function updateAnEmployee(id) {
+    // event.preventDefault();
+    // const formData = new FormData(event.target);
+    // const data = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch(`/api/employees/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        mutate();
+      }
+    } catch (error) {
+      console.error("Error updating item:", error);
+    }
+  }
 
   const deleteAnEmployee = async (idToDelete) => {
     try {
@@ -57,12 +97,14 @@ export default function Home() {
               ({ _id, firstName, lastName, position, supervisor }) => (
                 <li key={_id}>
                   {firstName} {lastName} {position}
+                  <button onClick={() => updateAnEmployee(_id)}>Update</button>
                   <button onClick={() => deleteAnEmployee(_id)}>Delete</button>
                 </li>
               )
             )}
           </ul>
           <NewEmployeeForm />
+          {/* <UpdateEmployeeForm /> */}
         </div>
       )}
     </>
