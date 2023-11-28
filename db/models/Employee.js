@@ -7,7 +7,10 @@ const employeeSchema = new Schema({
   lastName: { type: String, required: true },
   position: { type: String, required: true },
   supervisor: { type: String, required: true },
-  creationDate: { type: String, required: true },
+  creationDate: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Employee =

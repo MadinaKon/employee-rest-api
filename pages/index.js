@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import NewEmployeeForm from "./NewEmployeeForm";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
@@ -21,11 +22,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Fetch items when the component mounts or whenever dependencies change
     fetchData();
   }, []);
 
-  const deleteItem = async (idToDelete) => {
+  const deleteAnEmployee = async (idToDelete) => {
     try {
       await fetch(`/api/employees/${idToDelete}`, {
         method: "DELETE",
@@ -57,11 +57,12 @@ export default function Home() {
               ({ _id, firstName, lastName, position, supervisor }) => (
                 <li key={_id}>
                   {firstName} {lastName} {position}
-                  <button onClick={() => deleteItem(_id)}>Delete</button>
+                  <button onClick={() => deleteAnEmployee(_id)}>Delete</button>
                 </li>
               )
             )}
           </ul>
+          <NewEmployeeForm />
         </div>
       )}
     </>
