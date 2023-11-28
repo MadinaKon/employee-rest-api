@@ -6,20 +6,17 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [employees, setEmployees] = useState([]);
 
-  const { mutate } = useSWR("/api/employees");
+  // const { mutate } = useSWR("/api/employees");
 
-  useEffect(() => {
-    async function startFetching() {
+  const fetchData = async () => {
+    try {
       const response = await fetch("/api/employees");
-      const employeesList = await response.json();
-
-      console.log("EMPLOYEES ", employeesList);
-
-      setEmployees(employeesList);
+      const data = await response.json();
+      setEmployees(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-
-    startFetching();
-  }, []);
+  };
 
   return (
     <>
@@ -29,7 +26,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <button>Display all employees</button> */}
+
+      <button onClick={fetchData}>Fetch all employees</button>
       {employees.map(({ _id, firstName, lastName, position, supervisor }) => (
         <li key={_id}>
           {firstName} {lastName} {position}
