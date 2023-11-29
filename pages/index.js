@@ -111,14 +111,56 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TableOverview data={employees} />
+      {/* <TableOverview data={employees} /> */}
 
       <button onClick={fetchData}>Fetch all employees</button>
       {showData && employees && (
         <div>
           {/* <button onClick={hideData}>Hide Data</button> */}
-          <h2>Response Data: {employees.length}</h2>
-          <ul>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>position</th>
+                <th>supervisor</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {employees.map(
+                ({ _id, firstName, lastName, position, supervisor }) => (
+                  <tr key={_id}>
+                    <td>{firstName}</td>
+                    <td>{lastName}</td>
+                    <td>{position}</td>
+                    <td>{supervisor}</td>
+                    <button
+                      onClick={() =>
+                        handleUpdateClick({
+                          _id,
+                          firstName,
+                          lastName,
+                          position,
+                          supervisor,
+                        })
+                      }
+                    >
+                      Update
+                    </button>
+                    <button onClick={() => deleteAnEmployee(_id)}>
+                      Delete
+                    </button>
+                    <button onClick={() => displayLinkToSupervisor(_id)}>
+                      Link to Supervisor
+                    </button>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </table>
+
+          {/* <ul>
             {employees.map(
               ({ _id, firstName, lastName, position, supervisor }) => (
                 <li key={_id}>
@@ -143,7 +185,8 @@ export default function Home() {
                 </li>
               )
             )}
-          </ul>
+          </ul> */}
+          <h2>Create a new employee</h2>
           {selectedEmployee && (
             <UpdateEmployeeForm
               employee={selectedEmployee}
