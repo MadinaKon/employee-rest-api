@@ -76,10 +76,10 @@ export default function Home() {
           <table border="1" className={styles.table}>
             <thead>
               <tr>
-                <th>firstName</th>
-                <th>lastName</th>
-                <th>position</th>
-                <th>supervisor</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Position</th>
+                <th>Supervisor</th>
                 <th>Actions</th>
               </tr>
             </thead>
