@@ -6,6 +6,7 @@ import UpdateEmployeeForm from "./UpdateEmployeeForm";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [showData, setShowData] = useState(false);
 
   // const { data, isLoading, mutate } = useSWR(`/api/employees/${id}`);
@@ -30,7 +31,29 @@ export default function Home() {
     fetchData();
   }, []);
 
+  // async function updateAnEmployee(id, data) {
+  //   try {
+  //     const response = await fetch(`/api/employees/${id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     if (response.ok) {
+  //       mutate();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating item:", error);
+  //   }
+  // }
+
   async function updateAnEmployee(id, data) {
+    // event.preventDefault();
+    // const formData = new FormData(event.target);
+    // const data = Object.fromEntries(formData);
+
     try {
       const response = await fetch(`/api/employees/${id}`, {
         method: "PUT",
@@ -48,7 +71,24 @@ export default function Home() {
     }
   }
 
+  const handleUpdateClick = (employee) => {
+    setSelectedEmployee(employee); // Set the selected employee data
+  };
+
   const deleteAnEmployee = async (idToDelete) => {
+    try {
+      await fetch(`/api/employees/${idToDelete}`, {
+        method: "DELETE",
+      });
+      // Manually update the items state after deletion
+      const updatedItems = employees.filter((item) => item._id !== idToDelete);
+      setEmployees(updatedItems);
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
+  const displayLinkToSupervisor = async (idToDelete) => {
     try {
       await fetch(`/api/employees/${idToDelete}`, {
         method: "DELETE",
@@ -82,7 +122,8 @@ export default function Home() {
                   {firstName} {lastName} {position}
                   <button
                     onClick={() =>
-                      updateAnEmployee(_id, {
+                      handleUpdateClick({
+                        _id,
                         firstName,
                         lastName,
                         position,
@@ -90,13 +131,22 @@ export default function Home() {
                       })
                     }
                   >
-                    Update
+                    Update here
                   </button>
                   <button onClick={() => deleteAnEmployee(_id)}>Delete</button>
+                  <button onClick={() => displayLinkToSupervisor(_id)}>
+                    Link to Supervisor
+                  </button>
                 </li>
               )
             )}
           </ul>
+          {selectedEmployee && (
+            <UpdateEmployeeForm
+              employee={selectedEmployee}
+              updateEmployee={(id, data) => updateAnEmployee(id, data)} // Pass the update function
+            />
+          )}
           <NewEmployeeForm />
         </div>
       )}
