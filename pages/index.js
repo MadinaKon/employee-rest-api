@@ -6,7 +6,6 @@ import UpdateEmployeeForm from "./UpdateEmployeeForm";
 import styles from "../styles/Table.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 
-
 export default function Home() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -75,7 +74,8 @@ export default function Home() {
   }
 
   const handleUpdateClick = (employee) => {
-    setSelectedEmployee(employee); // Set the selected employee data
+    console.log("HANDLE UPDATE CLICK EMPLOYEE ", employee);
+    setSelectedEmployee(employee);
   };
 
   const deleteAnEmployee = async (idToDelete) => {
@@ -167,7 +167,13 @@ export default function Home() {
               )}
             </tbody>
           </table>
-
+          {selectedEmployee && (
+            <UpdateEmployeeForm
+              employee={selectedEmployee}
+              updateEmployee={(id, data) => updateAnEmployee(id, data)}
+              defaultData={selectedEmployee}
+            />
+          )}
           {/* <ul>
             {employees.map(
               ({ _id, firstName, lastName, position, supervisor }) => (
@@ -195,12 +201,6 @@ export default function Home() {
             )}
           </ul> */}
           <h2>Create a new employee</h2>
-          {selectedEmployee && (
-            <UpdateEmployeeForm
-              employee={selectedEmployee}
-              updateEmployee={(id, data) => updateAnEmployee(id, data)} // Pass the update function
-            />
-          )}
           <NewEmployeeForm />
         </div>
       )}
