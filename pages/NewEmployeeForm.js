@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import styles from "../styles/Input.module.css";
+import stylesButton from "../styles/Buttons.module.css";
 
 export default function NewEmployeeForm() {
   const [isChecked, setIsChecked] = useState(false);
@@ -41,6 +43,8 @@ export default function NewEmployeeForm() {
               type="text"
               name="firstName"
               required
+              className={styles.input}
+              placeholder="Firstname"
               //value={firstName}
               // onChange={handleChange}
             />
@@ -53,6 +57,8 @@ export default function NewEmployeeForm() {
               type="text"
               name="lastName"
               required
+              className={styles.input}
+              placeholder="Lastname"
               // value={lastName}
               // onChange={handleChange}
             />
@@ -65,6 +71,8 @@ export default function NewEmployeeForm() {
               type="text"
               name="position"
               required
+              className={styles.input}
+              placeholder="Position"
               // value={position}
               // onChange={handleChange}
             />
@@ -92,7 +100,9 @@ export default function NewEmployeeForm() {
             Supervisor
           </label>
         </div>
-        <button type="submit">Create a new employee</button>
+        <button type="submit" className={stylesButton.submit}>
+          Create a new employee
+        </button>
       </form>
     </>
   );
