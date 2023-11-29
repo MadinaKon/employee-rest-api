@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import NewEmployeeForm from "./NewEmployeeForm";
 import useSWR from "swr";
 import UpdateEmployeeForm from "./UpdateEmployeeForm";
+import styles from "../styles/Table.module.css";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
@@ -88,17 +89,18 @@ export default function Home() {
     }
   };
 
-  const displayLinkToSupervisor = async (idToDelete) => {
-    try {
-      await fetch(`/api/employees/${idToDelete}`, {
-        method: "DELETE",
-      });
-      // Manually update the items state after deletion
-      const updatedItems = employees.filter((item) => item._id !== idToDelete);
-      setEmployees(updatedItems);
-    } catch (error) {
-      console.error("Error deleting item:", error);
-    }
+  const displayLinkToSupervisor = async (supervisorId) => {
+    console.log("displayLinkToSupervisor ", supervisorId);
+    // try {
+    //   await fetch(`/api/employees/${supervisorId}`, {
+    //     method: "GET",
+    //   });
+
+    //   // const updatedItems = employees.find((item) => item._id === supervisorId);
+    //   // setEmployees(updatedItems);
+    // } catch (error) {
+    //   console.error("Error deleting item:", error);
+    // }
   };
 
   return (
@@ -114,7 +116,7 @@ export default function Home() {
       {showData && employees && (
         <div>
           {/* <button onClick={hideData}>Hide Data</button> */}
-          <table border="1">
+          <table border="1" className={styles.table}>
             <thead>
               <tr>
                 <th>firstName</th>
