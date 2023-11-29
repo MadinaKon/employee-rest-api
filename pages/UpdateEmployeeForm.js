@@ -1,30 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import useSWR from "swr";
 
 const UpdateEmployeeForm = ({ defaultData, id }) => {
-  // console.log("DEFAULT DATA ", defaultData);
-
-  // const { data, isLoading, mutate } = useSWR(`/api/employees/${id}`);
-  const { data: employee, isLoading, mutate } = useSWR(`/api/employees`);
-  // const { mutate } = useSWR(`/api/employees`);
+  const { mutate } = useSWR(`/api/employees`);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    // Perform update using updateEmployee function with formData
-    // updateAnEmployee(formData._id, formData);
 
-    console.log("DATA FROM AN API ", data);
-    // updateEmployee(data);
-    updateMe(data);
-
-    // updateEmployee(formData._id, formData);
+    updateEmployee(data);
   };
 
-  async function updateMe(data) {
-    console.log("UPDATE ME DATA ", data);
-
+  async function updateEmployee(data) {
     try {
       const response = await fetch(`/api/employees/${id}`, {
         method: "PUT",
