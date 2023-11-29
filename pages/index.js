@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import NewEmployeeForm from "./NewEmployeeForm";
 import useSWR from "swr";
 import UpdateEmployeeForm from "./UpdateEmployeeForm";
+import TableOverview from "./TableOverview";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
@@ -109,6 +110,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <TableOverview data={employees} />
 
       <button onClick={fetchData}>Fetch all employees</button>
       {showData && employees && (
