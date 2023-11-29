@@ -191,11 +191,13 @@ export default function Home() {
               )}
             </tbody>
           </table>
+
           {selectedEmployee && (
             <UpdateEmployeeForm
               // employee={selectedEmployee}
               // updateEmployee={(id, data) => updateAnEmployee(id, data)}
               defaultData={selectedEmployee}
+              id={selectedEmployee._id}
             />
           )}
           {/* <ul>

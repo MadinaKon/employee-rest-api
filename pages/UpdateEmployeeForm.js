@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
 
-const UpdateEmployeeForm = ({ defaultData }) => {
+const UpdateEmployeeForm = ({ defaultData, id }) => {
   // console.log("DEFAULT DATA ", defaultData);
 
   // const { data, isLoading, mutate } = useSWR(`/api/employees/${id}`);
-  // const { data: employee, isLoading, mutate } = useSWR(`/api/employees`);
-  const { mutate } = useSWR(`/api/employees`);
+  const { data: employee, isLoading, mutate } = useSWR(`/api/employees`);
+  // const { mutate } = useSWR(`/api/employees`);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,6 +24,7 @@ const UpdateEmployeeForm = ({ defaultData }) => {
 
   async function updateMe(data) {
     console.log("UPDATE ME DATA ", data);
+
     try {
       const response = await fetch(`/api/employees/${id}`, {
         method: "PUT",
