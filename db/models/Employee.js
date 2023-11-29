@@ -6,7 +6,8 @@ const employeeSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   position: { type: String, required: true },
-  supervisor: { type: String, required: true },
+  // supervisor: { type: String, required: true },
+  supervisor: { type: String },
   creationDate: {
     type: Date,
     default: Date.now,

@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function NewEmployeeForm() {
+  const [isChecked, setIsChecked] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    console.log("DATA NEW ", data);
-    // onAddEmployee(data);
+
     createEmployee(data);
   };
 
@@ -22,6 +22,13 @@ export default function NewEmployeeForm() {
     } catch (error) {
       console.error("Error deleting item:", error);
     }
+  };
+
+  //   const handleCheckboxChange = (e) => {
+  //     setIsChecked(e.target.checked);
+  //   };
+  const handleCheckboxChange = (e) => {
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -64,7 +71,7 @@ export default function NewEmployeeForm() {
           </label>
         </div>
         <div>
-          <label>
+          {/* <label>
             Supervisor:
             <input
               type="text"
@@ -73,6 +80,16 @@ export default function NewEmployeeForm() {
               // value={supervisor}
               // onChange={handleChange}
             />
+          </label> */}
+          <label>
+            <input
+              type="checkbox"
+              name="supervisor"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              value="yes"
+            />
+            Supervisor
           </label>
         </div>
         <button type="submit">Create a new employee</button>

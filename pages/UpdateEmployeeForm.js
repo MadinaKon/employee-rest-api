@@ -15,12 +15,8 @@ const UpdateEmployeeForm = ({ employee, updateEmployee }) => {
     // Reset form or perform other actions after submission
   };
 
-  // Other form elements...
-
   return (
     <form onSubmit={handleSubmit}>
-      {/* Form inputs pre-filled with employee data from formData */}
-      {/* ... */}
       <button type="submit">Update</button>
     </form>
   );
