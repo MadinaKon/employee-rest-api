@@ -32,6 +32,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
+        <h2>Update form</h2>
         <label>
           First Name:
           <input
@@ -66,13 +67,13 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
       </div>
       <div>
         <label>
-          Supervisor:
           <input
-            type="text"
+            type="checkbox"
             name="supervisor"
-            required
             defaultValue={defaultData?.supervisor}
+            value="yes"
           />
+          Supervisor
         </label>
       </div>
       <button type="submit">Update an employee</button>
