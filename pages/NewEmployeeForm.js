@@ -101,7 +101,7 @@ export default function NewEmployeeForm() {
           </label>
         </div>
         <button type="submit" className={stylesButton.submit}>
-          Create a new employee
+          Submit
         </button>
       </form>
     </>

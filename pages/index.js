@@ -1,19 +1,14 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import NewEmployeeForm from "./NewEmployeeForm";
-import useSWR from "swr";
 import UpdateEmployeeForm from "./UpdateEmployeeForm";
 import styles from "../styles/Table.module.css";
 import stylesButton from "../styles/Buttons.module.css";
-
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [showData, setShowData] = useState(false);
-
-  // const { data, isLoading, mutate } = useSWR(`/api/employees/${id}`);
-  const { data, isLoading, mutate } = useSWR(`/api/employees`);
 
   const fetchData = async () => {
     try {
@@ -34,48 +29,9 @@ export default function Home() {
     fetchData();
   }, []);
 
-  // async function updateAnEmployee(id, data) {
-  //   try {
-  //     const response = await fetch(`/api/employees/${id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     if (response.ok) {
-  //       mutate();
-  //     }
-  //   } catch (error) {
-  //     console.error("Error updating item:", error);
-  //   }
-  // }
-
-  async function updateAnEmployee(id, data) {
-    // event.preventDefault();
-    // const formData = new FormData(event.target);
-    // const data = Object.fromEntries(formData);
-
-    try {
-      const response = await fetch(`/api/employees/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        mutate();
-      }
-    } catch (error) {
-      console.error("Error updating item:", error);
-    }
-  }
-
   const handleUpdateClick = (employee) => {
-    setSelectedEmployee(employee); // Set the selected employee data
+    console.log("HANDLE UPDATE CLICK EMPLOYEE ", employee);
+    setSelectedEmployee(employee);
   };
 
   const deleteAnEmployee = async (idToDelete) => {
@@ -83,7 +39,6 @@ export default function Home() {
       await fetch(`/api/employees/${idToDelete}`, {
         method: "DELETE",
       });
-      // Manually update the items state after deletion
       const updatedItems = employees.filter((item) => item._id !== idToDelete);
       setEmployees(updatedItems);
     } catch (error) {
@@ -168,39 +123,13 @@ export default function Home() {
             </tbody>
           </table>
 
-          {/* <ul>
-            {employees.map(
-              ({ _id, firstName, lastName, position, supervisor }) => (
-                <li key={_id}>
-                  {firstName} {lastName} {position}
-                  <button
-                    onClick={() =>
-                      handleUpdateClick({
-                        _id,
-                        firstName,
-                        lastName,
-                        position,
-                        supervisor,
-                      })
-                    }
-                  >
-                    Update here
-                  </button>
-                  <button onClick={() => deleteAnEmployee(_id)}>Delete</button>
-                  <button onClick={() => displayLinkToSupervisor(_id)}>
-                    Link to Supervisor
-                  </button>
-                </li>
-              )
-            )}
-          </ul> */}
-          <h2>Create a new employee</h2>
           {selectedEmployee && (
             <UpdateEmployeeForm
-              employee={selectedEmployee}
-              updateEmployee={(id, data) => updateAnEmployee(id, data)} // Pass the update function
+              defaultData={selectedEmployee}
+              id={selectedEmployee._id}
             />
           )}
+          <h2>Create a new employee</h2>
           <NewEmployeeForm />
         </div>
       )}
