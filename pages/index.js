@@ -4,6 +4,7 @@ import NewEmployeeForm from "./NewEmployeeForm";
 import useSWR from "swr";
 import UpdateEmployeeForm from "./UpdateEmployeeForm";
 import styles from "../styles/Table.module.css";
+import stylesButton from "../styles/Buttons.module.css";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
@@ -144,13 +145,20 @@ export default function Home() {
                           supervisor,
                         })
                       }
+                      className={stylesButton.button}
                     >
                       Update
                     </button>
-                    <button onClick={() => deleteAnEmployee(_id)}>
+                    <button
+                      onClick={() => deleteAnEmployee(_id)}
+                      className={stylesButton.button}
+                    >
                       Delete
                     </button>
-                    <button onClick={() => displayLinkToSupervisor(_id)}>
+                    <button
+                      onClick={() => displayLinkToSupervisor(_id)}
+                      className={stylesButton.button}
+                    >
                       Link to Supervisor
                     </button>
                   </tr>
