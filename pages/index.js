@@ -30,24 +30,7 @@ export default function Home() {
     fetchData();
   }, []);
 
-  // const updateAnEmployee = async (idToUpdate) => {
-  //   try {
-  //     await fetch(`/api/employees/${idToUpdate}`, {
-  //       method: "PUT",
-  //     });
-
-  //     // const updatedItems = employees.filter((item) => item._id !== idToUpdate);
-  //     setEmployees(updatedItems);
-  //   } catch (error) {
-  //     console.error("Error updating item:", error);
-  //   }
-  // };
-
-  async function updateAnEmployee(id) {
-    // event.preventDefault();
-    // const formData = new FormData(event.target);
-    // const data = Object.fromEntries(formData);
-
+  async function updateAnEmployee(id, data) {
     try {
       const response = await fetch(`/api/employees/${id}`, {
         method: "PUT",
@@ -97,14 +80,24 @@ export default function Home() {
               ({ _id, firstName, lastName, position, supervisor }) => (
                 <li key={_id}>
                   {firstName} {lastName} {position}
-                  <button onClick={() => updateAnEmployee(_id)}>Update</button>
+                  <button
+                    onClick={() =>
+                      updateAnEmployee(_id, {
+                        firstName,
+                        lastName,
+                        position,
+                        supervisor,
+                      })
+                    }
+                  >
+                    Update
+                  </button>
                   <button onClick={() => deleteAnEmployee(_id)}>Delete</button>
                 </li>
               )
             )}
           </ul>
           <NewEmployeeForm />
-          {/* <UpdateEmployeeForm /> */}
         </div>
       )}
     </>
