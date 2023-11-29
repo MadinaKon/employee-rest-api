@@ -51,13 +51,37 @@ export default function Home() {
   //   }
   // }
 
-  async function updateAnEmployee(id, data) {
+  // async function updateAnEmployee(id, data) {
+  //   // event.preventDefault();
+  //   // const formData = new FormData(event.target);
+  //   // const data = Object.fromEntries(formData);
+
+  //   try {
+  //     const response = await fetch(`/api/employees/${id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     if (response.ok) {
+  //       mutate();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating item:", error);
+  //   }
+  // }
+
+  async function updateAnEmployee(data) {
     // event.preventDefault();
     // const formData = new FormData(event.target);
     // const data = Object.fromEntries(formData);
 
+    console.log("DAAATAAAAAA UPDATE ", data);
+
     try {
-      const response = await fetch(`/api/employees/${id}`, {
+      const response = await fetch(`/api/employees/${selectedEmployee._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -169,8 +193,8 @@ export default function Home() {
           </table>
           {selectedEmployee && (
             <UpdateEmployeeForm
-              employee={selectedEmployee}
-              updateEmployee={(id, data) => updateAnEmployee(id, data)}
+              // employee={selectedEmployee}
+              // updateEmployee={(id, data) => updateAnEmployee(id, data)}
               defaultData={selectedEmployee}
             />
           )}

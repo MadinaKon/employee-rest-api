@@ -1,36 +1,29 @@
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
 
-const UpdateEmployeeForm = ({ employee, updateEmployee, defaultData }) => {
-  const [formData, setFormData] = useState({ ...employee });
-
-  console.log("DEFAULT DATA ", defaultData);
+const UpdateEmployeeForm = ({ defaultData }) => {
+  // console.log("DEFAULT DATA ", defaultData);
 
   // const { data, isLoading, mutate } = useSWR(`/api/employees/${id}`);
-  const { data, isLoading, mutate } = useSWR(`/api/employees`);
+  // const { data: employee, isLoading, mutate } = useSWR(`/api/employees`);
+  const { mutate } = useSWR(`/api/employees`);
 
-  useEffect(() => {
-    // Update form data when employee prop changes
-    setFormData({ ...employee });
-  }, [employee]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
     // Perform update using updateEmployee function with formData
-    updateAnEmployee(formData._id, formData);
-    // Reset form or perform other actions after submission
+    // updateAnEmployee(formData._id, formData);
+
+    console.log("DATA FROM AN API ", data);
+    // updateEmployee(data);
+    updateMe(data);
+
+    // updateEmployee(formData._id, formData);
   };
 
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     const formData = new FormData(event.target);
-  //     const data = Object.fromEntries(formData);
-  //     console.log("DATA NEW ", data);
-  //     // onAddEmployee(data);
-  //     updateAnEmployee(data);
-  //   };
-
-  async function updateAnEmployee(id, data) {
+  async function updateMe(data) {
+    console.log("UPDATE ME DATA ", data);
     try {
       const response = await fetch(`/api/employees/${id}`, {
         method: "PUT",
@@ -47,7 +40,6 @@ const UpdateEmployeeForm = ({ employee, updateEmployee, defaultData }) => {
       console.error("Error updating item:", error);
     }
   }
-
   return (
     <form onSubmit={handleSubmit}>
       <div>
