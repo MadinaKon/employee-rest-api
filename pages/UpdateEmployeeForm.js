@@ -71,7 +71,6 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             type="checkbox"
             name="supervisor"
             defaultValue={defaultData?.supervisor}
-            value="yes"
           />
           Supervisor
         </label>
