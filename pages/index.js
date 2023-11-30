@@ -4,6 +4,7 @@ import NewEmployeeForm from "./NewEmployeeForm";
 import UpdateEmployeeForm from "./UpdateEmployeeForm";
 import styles from "../styles/Table.module.css";
 import stylesButton from "../styles/Buttons.module.css";
+import Dropdown from "./Dropdown";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
@@ -110,12 +111,6 @@ export default function Home() {
                       className={stylesButton.button}
                     >
                       Delete
-                    </button>
-                    <button
-                      onClick={() => displayLinkToSupervisor(_id)}
-                      className={stylesButton.button}
-                    >
-                      Link to Supervisor
                     </button>
                   </tr>
                 )

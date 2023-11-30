@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
+import Dropdown from "./Dropdown";
 
 export default function NewEmployeeForm() {
   const [isChecked, setIsChecked] = useState(false);
@@ -8,6 +9,8 @@ export default function NewEmployeeForm() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+
+    console.log("FORMDATA ", data);
 
     createEmployee(data);
   };
@@ -90,14 +93,15 @@ export default function NewEmployeeForm() {
             />
           </label> */}
           <label>
-            <input
+            {/* <input
               type="checkbox"
               name="supervisor"
               checked={isChecked}
               onChange={handleCheckboxChange}
               value="yes"
             />
-            Supervisor
+            Supervisor */}
+            <Dropdown />
           </label>
         </div>
         <button type="submit" className={stylesButton.submit}>
