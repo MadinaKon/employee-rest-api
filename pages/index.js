@@ -46,20 +46,6 @@ export default function Home() {
     }
   };
 
-  const displayLinkToSupervisor = async (supervisorId) => {
-    console.log("displayLinkToSupervisor ", supervisorId);
-    // try {
-    //   await fetch(`/api/employees/${supervisorId}`, {
-    //     method: "GET",
-    //   });
-
-    //   // const updatedItems = employees.find((item) => item._id === supervisorId);
-    //   // setEmployees(updatedItems);
-    // } catch (error) {
-    //   console.error("Error deleting item:", error);
-    // }
-  };
-
   return (
     <>
       <Head>
