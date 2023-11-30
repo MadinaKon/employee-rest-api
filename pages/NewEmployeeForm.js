@@ -5,12 +5,20 @@ import Dropdown from "./Dropdown";
 
 export default function NewEmployeeForm() {
   const [isChecked, setIsChecked] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
+
+  // Function to handle the option selection
+  const handleSelect = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    console.log("FORMDATA ", data);
+    // Add the selected option to the data object
+    data.selectedOption = selectedOption;
 
     createEmployee(data);
   };
@@ -92,17 +100,22 @@ export default function NewEmployeeForm() {
               // onChange={handleChange}
             />
           </label> */}
-          <label>
-            {/* <input
-              type="checkbox"
-              name="supervisor"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-              value="yes"
-            />
-            Supervisor */}
+          {/* <label>
             <Dropdown />
-          </label>
+          </label> */}
+          <div>
+            <label htmlFor="dropdown">Select a supervisor:</label>
+            <select
+              id="dropdown"
+              value={selectedOption}
+              onChange={handleSelect}
+            >
+              <option value="">-- Please choose an option --</option>
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </select>
+          </div>
         </div>
         <button type="submit" className={stylesButton.submit}>
           Submit
