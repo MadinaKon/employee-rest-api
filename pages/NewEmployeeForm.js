@@ -3,7 +3,6 @@ import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 
 export default function NewEmployeeForm() {
-  // const [supervisor, setSupervisor] = useState([]);
   const [supervisors, setSupervisors] = useState([]);
   const [selectedSupervisor, setSelectedSupervisor] = useState("");
 
@@ -15,7 +14,6 @@ export default function NewEmployeeForm() {
 
       const data = await response.json();
       setSupervisors(data);
-      //  return data;
     } catch (error) {
       console.log(error);
     }
@@ -26,7 +24,6 @@ export default function NewEmployeeForm() {
   }, []);
 
   const handleSelect = (event) => {
-    // setSupervisor(event.target.value);
     setSelectedSupervisor(event.target.value);
   };
 
@@ -35,8 +32,7 @@ export default function NewEmployeeForm() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    data.supervisor = supervisors;
-
+    data.supervisor = selectedSupervisor;
     createEmployee(data);
   };
 
@@ -103,7 +99,7 @@ export default function NewEmployeeForm() {
             >
               <option value="">-- Please choose an option --</option>
               {supervisors.map(({ id, email }) => (
-                <option key={id} value={id}>
+                <option key={id} value={email}>
                   {email}
                 </option>
               ))}
