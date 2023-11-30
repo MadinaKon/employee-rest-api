@@ -18,6 +18,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
   const resetForm = (data) => {
     if (data) {
       const { firstName, lastName, position, supervisor } = data;
+
       firstNameField.current.value = firstName;
       lastNameField.current.value = lastName;
       positionField.current.value = position;
@@ -91,13 +92,13 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
       </div>
       <div>
         <label>
+          Supervisor
           <input
-            type="checkbox"
+            type="text"
             name="supervisor"
             defaultValue={defaultData?.supervisor}
             ref={supervisorField}
           />
-          Supervisor
         </label>
       </div>
       <button type="submit">Update an employee</button>

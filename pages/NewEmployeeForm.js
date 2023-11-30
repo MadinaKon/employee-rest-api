@@ -3,11 +3,20 @@ import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 
 export default function NewEmployeeForm() {
-  const [isChecked, setIsChecked] = useState(false);
+  const [supervisor, setSupervisor] = useState("");
+
+  // Function to handle the option selection
+  const handleSelect = (event) => {
+    setSupervisor(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+
+    // Add the selected option to the data object
+    data.supervisor = supervisor;
 
     createEmployee(data);
   };
@@ -26,13 +35,6 @@ export default function NewEmployeeForm() {
     }
   };
 
-  //   const handleCheckboxChange = (e) => {
-  //     setIsChecked(e.target.checked);
-  //   };
-  const handleCheckboxChange = (e) => {
-    setIsChecked(!isChecked);
-  };
-
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -45,8 +47,6 @@ export default function NewEmployeeForm() {
               required
               className={styles.input}
               placeholder="Firstname"
-              //value={firstName}
-              // onChange={handleChange}
             />
           </label>
         </div>
@@ -59,8 +59,6 @@ export default function NewEmployeeForm() {
               required
               className={styles.input}
               placeholder="Lastname"
-              // value={lastName}
-              // onChange={handleChange}
             />
           </label>
         </div>
@@ -73,32 +71,19 @@ export default function NewEmployeeForm() {
               required
               className={styles.input}
               placeholder="Position"
-              // value={position}
-              // onChange={handleChange}
             />
           </label>
         </div>
         <div>
-          {/* <label>
-            Supervisor:
-            <input
-              type="text"
-              name="supervisor"
-              required
-              // value={supervisor}
-              // onChange={handleChange}
-            />
-          </label> */}
-          <label>
-            <input
-              type="checkbox"
-              name="supervisor"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-              value="yes"
-            />
-            Supervisor
-          </label>
+          <div>
+            <label htmlFor="dropdown">Select a supervisor:</label>
+            <select id="dropdown" value={supervisor} onChange={handleSelect}>
+              <option value="">-- Please choose an option --</option>
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </select>
+          </div>
         </div>
         <button type="submit" className={stylesButton.submit}>
           Submit
