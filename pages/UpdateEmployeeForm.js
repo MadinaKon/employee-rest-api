@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import useSWR from "swr";
 
 const UpdateEmployeeForm = ({ defaultData, id }) => {
   const { mutate } = useSWR(`/api/employees`);
+
+  // Refs to form fields
+  const firstNameField = useRef(null);
+  const lastNameField = useRef(null);
+  const positionField = useRef(null);
+  const supervisorField = useRef(null);
+
+  useEffect(() => {
+    // Reset form fields whenever defaultData changes
+    resetForm(defaultData);
+  }, [defaultData]);
+
+  const resetForm = (data) => {
+    if (data) {
+      const { firstName, lastName, position, supervisor } = data;
+      firstNameField.current.value = firstName;
+      lastNameField.current.value = lastName;
+      positionField.current.value = position;
+      supervisorField.current.value = supervisor;
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,6 +61,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             name="firstName"
             required
             defaultValue={defaultData?.firstName}
+            ref={firstNameField}
           />
         </label>
       </div>
@@ -51,6 +73,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             name="lastName"
             required
             defaultValue={defaultData?.lastName}
+            ref={lastNameField}
           />
         </label>
       </div>
@@ -62,6 +85,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             name="position"
             required
             defaultValue={defaultData?.position}
+            ref={positionField}
           />
         </label>
       </div>
@@ -71,6 +95,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             type="checkbox"
             name="supervisor"
             defaultValue={defaultData?.supervisor}
+            ref={supervisorField}
           />
           Supervisor
         </label>
