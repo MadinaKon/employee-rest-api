@@ -3,11 +3,11 @@ import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 
 export default function NewEmployeeForm() {
-  const [selectedOption, setSelectedOption] = useState("");
+  const [supervisor, setSupervisor] = useState("");
 
   // Function to handle the option selection
   const handleSelect = (event) => {
-    setSelectedOption(event.target.value);
+    setSupervisor(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -16,7 +16,7 @@ export default function NewEmployeeForm() {
     const data = Object.fromEntries(formData);
 
     // Add the selected option to the data object
-    data.selectedOption = selectedOption;
+    data.supervisor = supervisor;
 
     createEmployee(data);
   };
@@ -79,7 +79,8 @@ export default function NewEmployeeForm() {
             <label htmlFor="dropdown">Select a supervisor:</label>
             <select
               id="dropdown"
-              value={selectedOption}
+              // value={selectedOption}
+              value={supervisor}
               onChange={handleSelect}
             >
               <option value="">-- Please choose an option --</option>
