@@ -30,7 +30,6 @@ export default function Home() {
   }, []);
 
   const handleUpdateClick = (employee) => {
-    console.log("HANDLE UPDATE CLICK EMPLOYEE ", employee);
     setSelectedEmployee(employee);
   };
 
