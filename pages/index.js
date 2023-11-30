@@ -4,7 +4,6 @@ import NewEmployeeForm from "./NewEmployeeForm";
 import UpdateEmployeeForm from "./UpdateEmployeeForm";
 import styles from "../styles/Table.module.css";
 import stylesButton from "../styles/Buttons.module.css";
-import Dropdown from "./Dropdown";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);

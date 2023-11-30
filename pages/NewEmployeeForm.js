@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
-import Dropdown from "./Dropdown";
 
 export default function NewEmployeeForm() {
-  const [isChecked, setIsChecked] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
   // Function to handle the option selection
@@ -37,13 +35,6 @@ export default function NewEmployeeForm() {
     }
   };
 
-  //   const handleCheckboxChange = (e) => {
-  //     setIsChecked(e.target.checked);
-  //   };
-  const handleCheckboxChange = (e) => {
-    setIsChecked(!isChecked);
-  };
-
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -56,8 +47,6 @@ export default function NewEmployeeForm() {
               required
               className={styles.input}
               placeholder="Firstname"
-              //value={firstName}
-              // onChange={handleChange}
             />
           </label>
         </div>
@@ -70,8 +59,6 @@ export default function NewEmployeeForm() {
               required
               className={styles.input}
               placeholder="Lastname"
-              // value={lastName}
-              // onChange={handleChange}
             />
           </label>
         </div>
@@ -84,25 +71,10 @@ export default function NewEmployeeForm() {
               required
               className={styles.input}
               placeholder="Position"
-              // value={position}
-              // onChange={handleChange}
             />
           </label>
         </div>
         <div>
-          {/* <label>
-            Supervisor:
-            <input
-              type="text"
-              name="supervisor"
-              required
-              // value={supervisor}
-              // onChange={handleChange}
-            />
-          </label> */}
-          {/* <label>
-            <Dropdown />
-          </label> */}
           <div>
             <label htmlFor="dropdown">Select a supervisor:</label>
             <select
