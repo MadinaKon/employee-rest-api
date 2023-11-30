@@ -1,13 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 
 export default function NewEmployeeForm() {
-  const [supervisor, setSupervisor] = useState("");
+  // const [supervisor, setSupervisor] = useState([]);
+  const [supervisors, setSupervisors] = useState([]);
+  const [selectedSupervisor, setSelectedSupervisor] = useState("");
 
-  // Function to handle the option selection
+  async function fetchSupervisors() {
+    try {
+      const response = await fetch(
+        `https://hub.dummyapis.com/employee?noofRecords=10&idStarts=1001`
+      );
+
+      const data = await response.json();
+      setSupervisors(data);
+      //  return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchSupervisors();
+  }, []);
+
   const handleSelect = (event) => {
-    setSupervisor(event.target.value);
+    // setSupervisor(event.target.value);
+    setSelectedSupervisor(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -15,8 +35,7 @@ export default function NewEmployeeForm() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    // Add the selected option to the data object
-    data.supervisor = supervisor;
+    data.supervisor = supervisors;
 
     createEmployee(data);
   };
@@ -77,11 +96,17 @@ export default function NewEmployeeForm() {
         <div>
           <div>
             <label htmlFor="dropdown">Select a supervisor:</label>
-            <select id="dropdown" value={supervisor} onChange={handleSelect}>
+            <select
+              id="dropdown"
+              value={selectedSupervisor}
+              onChange={handleSelect}
+            >
               <option value="">-- Please choose an option --</option>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+              {supervisors.map(({ id, email }) => (
+                <option key={id} value={id}>
+                  {email}
+                </option>
+              ))}
             </select>
           </div>
         </div>
