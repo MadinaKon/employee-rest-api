@@ -53,59 +53,54 @@ export default function NewEmployeeForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            First Name:
-            <input
-              type="text"
-              name="firstName"
-              required
-              className={styles.input}
-              placeholder="Firstname"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Last Name:
-            <input
-              type="text"
-              name="lastName"
-              required
-              className={styles.input}
-              placeholder="Lastname"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Position:
-            <input
-              type="text"
-              name="position"
-              required
-              className={styles.input}
-              placeholder="Position"
-            />
-          </label>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="dropdown">Select a supervisor:</label>
-            <select
-              id="dropdown"
-              value={selectedSupervisor}
-              onChange={handleSelect}
-            >
-              <option value="">-- Please choose an option --</option>
-              {supervisors.map(({ id, email }) => (
-                <option key={id} value={email}>
-                  {email}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+        <label>
+          First Name:
+          <input
+            type="text"
+            name="firstName"
+            required
+            className={styles.input}
+            placeholder="Firstname"
+          />
+        </label>
+        <br />
+
+        <label>
+          Last Name:
+          <input
+            type="text"
+            name="lastName"
+            required
+            className={styles.input}
+            placeholder="Lastname"
+          />
+        </label>
+        <br />
+        <label>
+          Position:
+          <input
+            type="text"
+            name="position"
+            required
+            className={styles.input}
+            placeholder="Position"
+          />
+        </label>
+        <br />
+        <label htmlFor="dropdown">Select a supervisor:</label>
+        <select
+          id="dropdown"
+          value={selectedSupervisor}
+          onChange={handleSelect}
+        >
+          <option value="">-- Please choose an option --</option>
+          {supervisors.map(({ id, email }) => (
+            <option key={id} value={email}>
+              {email}
+            </option>
+          ))}
+        </select>
+        <br />
         <button type="submit" className={stylesButton.submit}>
           Submit
         </button>
