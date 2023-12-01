@@ -55,6 +55,7 @@ export default function Home() {
       </Head>
 
       {/* <button onClick={fetchData}>Fetch all employees</button> */}
+      <h1>Employee table</h1>
       {showData && employees && (
         <div>
           {/* <button onClick={hideData}>Hide Data</button> */}
