@@ -55,58 +55,54 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <h2>Update form</h2>
-        <label>
-          First Name:
-          <input
-            type="text"
-            name="firstName"
-            required
-            defaultValue={defaultData?.firstName}
-            ref={firstNameField}
-            className={styles.input}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            name="lastName"
-            required
-            defaultValue={defaultData?.lastName}
-            ref={lastNameField}
-            className={styles.input}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Position:
-          <input
-            type="text"
-            name="position"
-            required
-            defaultValue={defaultData?.position}
-            ref={positionField}
-            className={styles.input}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Supervisor
-          <input
-            type="text"
-            name="supervisor"
-            defaultValue={defaultData?.supervisor}
-            ref={supervisorField}
-            className={styles.input}
-          />
-        </label>
-      </div>
+      <h2>Update form</h2>
+      <label>
+        First Name:
+        <input
+          type="text"
+          name="firstName"
+          required
+          defaultValue={defaultData?.firstName}
+          ref={firstNameField}
+          className={styles.input}
+        />
+      </label>
+      <br />
+      <label>
+        Last Name:
+        <input
+          type="text"
+          name="lastName"
+          required
+          defaultValue={defaultData?.lastName}
+          ref={lastNameField}
+          className={styles.input}
+        />
+      </label>
+      <br />
+      <label>
+        Position:
+        <input
+          type="text"
+          name="position"
+          required
+          defaultValue={defaultData?.position}
+          ref={positionField}
+          className={styles.input}
+        />
+      </label>
+      <br />
+      <label>
+        Supervisor
+        <input
+          type="text"
+          name="supervisor"
+          defaultValue={defaultData?.supervisor}
+          ref={supervisorField}
+          className={styles.input}
+        />
+      </label>
+      <br />
       <button type="submit" className={stylesButton.submit}>
         Update an employee
       </button>
