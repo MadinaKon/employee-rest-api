@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import useSWR from "swr";
+import styles from "../styles/Input.module.css";
+import stylesButton from "../styles/Buttons.module.css";
 
 const UpdateEmployeeForm = ({ defaultData, id }) => {
   const { mutate } = useSWR(`/api/employees`);
@@ -63,6 +65,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             required
             defaultValue={defaultData?.firstName}
             ref={firstNameField}
+            className={styles.input}
           />
         </label>
       </div>
@@ -75,6 +78,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             required
             defaultValue={defaultData?.lastName}
             ref={lastNameField}
+            className={styles.input}
           />
         </label>
       </div>
@@ -87,6 +91,7 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             required
             defaultValue={defaultData?.position}
             ref={positionField}
+            className={styles.input}
           />
         </label>
       </div>
@@ -98,10 +103,13 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
             name="supervisor"
             defaultValue={defaultData?.supervisor}
             ref={supervisorField}
+            className={styles.input}
           />
         </label>
       </div>
-      <button type="submit">Update an employee</button>
+      <button type="submit" className={stylesButton.submit}>
+        Update an employee
+      </button>
     </form>
   );
 };
