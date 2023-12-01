@@ -12,11 +12,15 @@
 }
 
 .table th {
-  background-color: lightpink;
+  background-color: #f0f0f0;
   font-weight: bold;
 }
 
 .table th:last-child,
 .table td:last-child {
   text-align: center;
+}
+
+.table tr:hover {
+  background: beige;
 }
