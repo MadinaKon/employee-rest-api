@@ -4,8 +4,6 @@ import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 
 const UpdateEmployeeForm = ({ defaultData, id, updateEmployee }) => {
-  const { mutate } = useSWR(`/api/employees`);
-
   // Refs to form fields
   const firstNameField = useRef(null);
   const lastNameField = useRef(null);
