@@ -59,7 +59,6 @@ export default function Home() {
       });
 
       if (response.ok) {
-        // Assuming the update is successful, update the state with the new employee data
         const updatedEmployeeList = employees.map((employee) =>
           employee._id === selectedEmployee._id ? updatedEmployee : employee
         );
