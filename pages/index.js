@@ -101,10 +101,12 @@ export default function Home() {
       </Head>
       <h1>Employee table</h1>
 
+      <SearchComponent data={filteredData} />
+
       {showData && employees && (
         <div>
           <div>
-            <label htmlFor="searchQuery">
+            {/* <label htmlFor="searchQuery">
               <input
                 type="text"
                 placeholder="Search..."
@@ -112,7 +114,7 @@ export default function Home() {
                 value={searchQuery}
                 onChange={onSearch}
               />
-            </label>
+            </label> */}
           </div>
           <table border="1" className={styles.table}>
             <thead>
