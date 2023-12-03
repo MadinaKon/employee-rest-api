@@ -1,10 +1,11 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import NewEmployeeForm from "./NewEmployeeForm";
-import UpdateEmployeeForm from "./UpdateEmployeeForm";
 import styles from "../styles/Table.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 import useSWR from "swr";
+import NewEmployeeForm from "./NewEmployeeForm";
+import UpdateEmployeeForm from "./UpdateEmployeeForm";
+import SearchComponent from "./SearchComponent";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
@@ -84,6 +85,7 @@ export default function Home() {
 
       {/* <button onClick={fetchData}>Fetch all employees</button> */}
       <h1>Employee table</h1>
+      <SearchComponent data={employees} />
       {showData && employees && (
         <div>
           {/* <button onClick={hideData}>Hide Data</button> */}
