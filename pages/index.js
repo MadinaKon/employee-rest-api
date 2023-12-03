@@ -4,11 +4,14 @@ import NewEmployeeForm from "./NewEmployeeForm";
 import UpdateEmployeeForm from "./UpdateEmployeeForm";
 import styles from "../styles/Table.module.css";
 import stylesButton from "../styles/Buttons.module.css";
+import useSWR from "swr";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [showData, setShowData] = useState(false);
+
+  const { mutate } = useSWR(`/api/employees`);
 
   const fetchData = async () => {
     try {
@@ -42,6 +45,31 @@ export default function Home() {
       setEmployees(updatedItems);
     } catch (error) {
       console.error("Error deleting item:", error);
+    }
+  };
+
+  const updateEmployee = async (updatedEmployee) => {
+    try {
+      const response = await fetch(`/api/employees/${selectedEmployee._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedEmployee),
+      });
+
+      if (response.ok) {
+        const updatedEmployeeList = employees.map((employee) =>
+          employee._id === selectedEmployee._id ? updatedEmployee : employee
+        );
+
+        setEmployees(updatedEmployeeList);
+        mutate();
+      } else {
+        console.error("Failed to update employee.");
+      }
+    } catch (error) {
+      console.error("Error updating employee:", error);
     }
   };
 
@@ -107,6 +135,7 @@ export default function Home() {
             <UpdateEmployeeForm
               defaultData={selectedEmployee}
               id={selectedEmployee._id}
+              updateEmployee={updateEmployee}
             />
           )}
           <h2>Create a new employee</h2>

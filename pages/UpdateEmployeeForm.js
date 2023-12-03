@@ -3,9 +3,7 @@ import useSWR from "swr";
 import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 
-const UpdateEmployeeForm = ({ defaultData, id }) => {
-  const { mutate } = useSWR(`/api/employees`);
-
+const UpdateEmployeeForm = ({ defaultData, id, updateEmployee }) => {
   // Refs to form fields
   const firstNameField = useRef(null);
   const lastNameField = useRef(null);
@@ -32,27 +30,9 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-
     updateEmployee(data);
   };
 
-  async function updateEmployee(data) {
-    try {
-      const response = await fetch(`/api/employees/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        mutate();
-      }
-    } catch (error) {
-      console.error("Error updating item:", error);
-    }
-  }
   return (
     <form onSubmit={handleSubmit}>
       <h2>Update form</h2>
