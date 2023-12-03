@@ -16,8 +16,8 @@ export default function Home() {
 
   const { mutate } = useSWR(`/api/employees`);
 
-  const onSearch = (e) => {
-    const query = e.target.value;
+  const onSearch = (event) => {
+    const query = event.target.value;
     setSearchQuery(query);
 
     const filtered = employees.filter((item) =>
@@ -104,12 +104,15 @@ export default function Home() {
       {showData && employees && (
         <div>
           <div>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={onSearch}
-            />
+            <label htmlFor="searchQuery">
+              <input
+                type="text"
+                placeholder="Search..."
+                id={searchQuery}
+                value={searchQuery}
+                onChange={onSearch}
+              />
+            </label>
           </div>
           <table border="1" className={styles.table}>
             <thead>
