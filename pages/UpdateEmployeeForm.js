@@ -32,27 +32,41 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-
     updateEmployee(data);
   };
 
-  async function updateEmployee(data) {
-    try {
-      const response = await fetch(`/api/employees/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  // async function updateEmployee(data) {
+  //   try {
+  //     const response = await fetch(`/api/employees/${id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
 
-      if (response.ok) {
-        mutate();
-      }
-    } catch (error) {
-      console.error("Error updating item:", error);
+  //     if (response.ok) {
+  //       mutate();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating item:", error);
+  //   }
+  // }
+
+  async function updateEmployee(data) {
+    const response = await fetch(`/api/employees/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      mutate();
     }
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Update form</h2>
