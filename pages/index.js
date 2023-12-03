@@ -11,8 +11,25 @@ export default function Home() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [showData, setShowData] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState(employees);
 
   const { mutate } = useSWR(`/api/employees`);
+
+  const onSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    const filtered = employees.filter((item) =>
+      Object.values(item).some(
+        (value) =>
+          typeof value === "string" &&
+          value.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+
+    setFilteredData(filtered);
+  };
 
   const fetchData = async () => {
     try {
@@ -82,13 +99,18 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      {/* <button onClick={fetchData}>Fetch all employees</button> */}
       <h1>Employee table</h1>
-      <SearchComponent data={employees} />
+
       {showData && employees && (
         <div>
-          {/* <button onClick={hideData}>Hide Data</button> */}
+          <div>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={onSearch}
+            />
+          </div>
           <table border="1" className={styles.table}>
             <thead>
               <tr>
@@ -140,6 +162,7 @@ export default function Home() {
               updateEmployee={updateEmployee}
             />
           )}
+
           <h2>Create a new employee</h2>
           <NewEmployeeForm />
         </div>

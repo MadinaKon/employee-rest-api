@@ -28,9 +28,6 @@ const SearchComponent = ({ data }) => {
         onChange={onSearch}
       />
       <ul>
-        {/* {filteredData.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))} */}
         {filteredData.map(
           (
             { firstName, lastName, position, supervisor, creationDate },
