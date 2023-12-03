@@ -1,17 +1,35 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import NewEmployeeForm from "./NewEmployeeForm";
-import UpdateEmployeeForm from "./UpdateEmployeeForm";
 import styles from "../styles/Table.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 import useSWR from "swr";
+import NewEmployeeForm from "./NewEmployeeForm";
+import UpdateEmployeeForm from "./UpdateEmployeeForm";
+import SearchComponent from "./SearchComponent";
 
 export default function Home() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [showData, setShowData] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState(employees);
 
   const { mutate } = useSWR(`/api/employees`);
+
+  const onSearch = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    const filtered = employees.filter((item) =>
+      Object.values(item).some(
+        (value) =>
+          typeof value === "string" &&
+          value.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+
+    setFilteredData(filtered);
+  };
 
   const fetchData = async () => {
     try {
@@ -81,12 +99,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      {/* <button onClick={fetchData}>Fetch all employees</button> */}
       <h1>Employee table</h1>
+
       {showData && employees && (
         <div>
-          {/* <button onClick={hideData}>Hide Data</button> */}
+          <div>
+            <label htmlFor="searchQuery">
+              <input
+                type="text"
+                placeholder="Search..."
+                id={searchQuery}
+                value={searchQuery}
+                onChange={onSearch}
+              />
+            </label>
+          </div>
           <table border="1" className={styles.table}>
             <thead>
               <tr>
@@ -138,6 +165,7 @@ export default function Home() {
               updateEmployee={updateEmployee}
             />
           )}
+
           <h2>Create a new employee</h2>
           <NewEmployeeForm />
         </div>
