@@ -3,7 +3,7 @@ import useSWR from "swr";
 import styles from "../styles/Input.module.css";
 import stylesButton from "../styles/Buttons.module.css";
 
-const UpdateEmployeeForm = ({ defaultData, id }) => {
+const UpdateEmployeeForm = ({ defaultData, id, updateEmployee }) => {
   const { mutate } = useSWR(`/api/employees`);
 
   // Refs to form fields
@@ -53,19 +53,19 @@ const UpdateEmployeeForm = ({ defaultData, id }) => {
   //   }
   // }
 
-  async function updateEmployee(data) {
-    const response = await fetch(`/api/employees/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+  // async function updateEmployee(data) {
+  //   const response = await fetch(`/api/employees/${id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
 
-    if (response.ok) {
-      mutate();
-    }
-  }
+  //   if (response.ok) {
+  //     mutate();
+  //   }
+  // }
 
   return (
     <form onSubmit={handleSubmit}>
